@@ -1,10 +1,25 @@
 package com.ll.domain.entity
 
+import com.ll.global.util.JsonUtil.jsonStrToMap
+
 class WiseSaying(
+    var id: Int = 0,
     var content: String,
     var author: String,
 ) {
-    var id: Int = 0
+    constructor(content: String, author: String) : this(0, content, author)
+
+    companion object {
+        fun fromJsonStr(jsonStr: String): WiseSaying {
+            val map = jsonStrToMap(jsonStr)
+
+            return WiseSaying(
+                id =  map["id"] as Int,
+                content = map["content"] as String,
+                author = map["author"] as String
+            )
+        }
+    }
 
     fun isNew(): Boolean {
         return id == 0

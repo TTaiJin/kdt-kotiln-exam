@@ -40,6 +40,8 @@ class WiseSayingFileRepository : WiseSayingRepository {
     override fun clear() {
         lastId = 0
         wiseSayings.clear()
+
+        tableDirPath.toFile().deleteRecursively()
     }
 
     private fun saveOnDisk(wiseSaying: WiseSaying) {

@@ -35,10 +35,20 @@ class WiseSayingFileRepositoryTest {
         val filePath = wiseSayingRepository
             .tableDirPath
             .toFile()
-            .listFiles() ?.find {
+            .listFiles()?.find {
                 it.name == "${wiseSaying.id}.json"
             }
 
         assertThat(filePath).isNotNull()
+    }
+
+    @Test
+    @DisplayName("findById")
+    fun t2() {
+        val wiseSaying = WiseSaying("나의 죽음을 적들에게 알리지 말라.", "충무공 이순신")
+        val savedWiseSaying = wiseSayingRepository.save(wiseSaying)
+        val foundWiseSaying = wiseSayingRepository.findById(savedWiseSaying.id)
+
+        assertThat(savedWiseSaying).isEqualTo(foundWiseSaying)
     }
 }
