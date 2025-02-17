@@ -68,4 +68,16 @@ class WiseSayingFileRepositoryTest {
         wiseSayingRepository.delete(wiseSaying.id)
         assertThat(wiseSayingRepository.findById(wiseSaying.id)).isNull()
     }
+
+    @Test
+    @DisplayName("findAll")
+    fun t5() {
+        val wiseSaying1 = WiseSaying("나의 죽음을 적들에게 알리지 말라.", "충무공 이순신")
+        val wiseSaying2 = WiseSaying("노는게 제일 좋아", "뽀로로")
+        wiseSayingRepository.save(wiseSaying1)
+        wiseSayingRepository.save(wiseSaying2)
+
+        val wiseSayings = wiseSayingRepository.findAll()
+        assertThat(wiseSayings).containsExactly(wiseSaying1, wiseSaying2)
+    }
 }
