@@ -6,19 +6,13 @@ import java.nio.file.Path
 
 class WiseSayingFileRepository : WiseSayingRepository {
 
-    private val wiseSayings: MutableList<WiseSaying> = mutableListOf()
-    private var lastId: Int = 0
-
     val tableDirPath: Path
         get() {
             return AppConfig.dbDirPath.resolve("WiseSaying")
         }
 
     override fun save(wiseSaying: WiseSaying): WiseSaying {
-        if (wiseSaying.isNew()) {
-            wiseSaying.id = ++lastId
-            wiseSayings.add(wiseSaying)
-        }
+        if (wiseSaying.isNew()) wiseSaying.id = loadLastIdAndIncrease()
 
         saveOnDisk(wiseSaying)
 
@@ -26,21 +20,22 @@ class WiseSayingFileRepository : WiseSayingRepository {
     }
 
     override fun findAll(): List<WiseSaying> {
-        return wiseSayings.toList()
+        return listOf()
     }
 
     override fun findById(id: Int): WiseSaying? {
-        return wiseSayings.firstOrNull { it.id == id }
+        return tableDirPath
+            .toFile()
+            .listFiles()
+            ?.find { it.name == "${id}.json" }
+            ?.let { WiseSaying.fromJsonStr(it.readText()) }
     }
 
-    override fun delete(id: Int): Boolean {
-        return wiseSayings.remove(findById(id))
+    override fun delete(id: Int): Boolean? {
+        return null
     }
 
     override fun clear() {
-        lastId = 0
-        wiseSayings.clear()
-
         tableDirPath.toFile().deleteRecursively()
     }
 
@@ -57,5 +52,30 @@ class WiseSayingFileRepository : WiseSayingRepository {
                 mkdirs()
             }
         }
+    }
+
+    internal fun saveLastId(lastId: Int) {
+        mkTableDirsIfNotExists()
+
+        tableDirPath.resolve("lastId.txt")
+            .toFile()
+            .writeText(lastId.toString())
+    }
+
+    internal fun loadLastId(): Int {
+        return try {
+            tableDirPath.resolve("lastId.txt")
+                .toFile()
+                .readText()
+                .toInt()
+        } catch (e: Exception) {
+            0
+        }
+    }
+
+    private fun loadLastIdAndIncrease(): Int {
+        val lastId = loadLastId()
+        saveLastId(lastId + 1)
+        return lastId
     }
 }

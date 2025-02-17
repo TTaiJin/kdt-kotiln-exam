@@ -10,7 +10,7 @@ interface WiseSayingRepository {
 
     fun findById(id: Int) : WiseSaying?
 
-    fun delete(id: Int): Boolean
+    fun delete(id: Int) : Boolean?
 
     fun clear()
 }
