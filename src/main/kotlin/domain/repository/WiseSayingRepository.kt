@@ -22,6 +22,10 @@ class WiseSayingRepository {
     }
 
     fun findById(id: Int) : WiseSaying? {
-        return wiseSayings.getOrNull(id - 1)
+        return wiseSayings.firstOrNull {it.getId() == id}
+    }
+
+    fun delete(id: Int): Boolean {
+        return wiseSayings.remove(findById(id))
     }
 }

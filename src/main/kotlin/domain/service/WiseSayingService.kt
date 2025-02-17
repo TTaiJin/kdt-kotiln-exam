@@ -21,8 +21,7 @@ class WiseSayingService {
     }
 
     fun deleteWiseSaying(id: Int): Boolean {
-        wiseSayingRepository.findById(id) ?: return false
-        return true
+        return wiseSayingRepository.delete(id)
     }
 
     fun modifyWiseSaying(wiseSaying: WiseSaying, content: String, author: String) {
