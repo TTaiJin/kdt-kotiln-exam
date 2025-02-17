@@ -10,7 +10,7 @@ class WiseSayingMemoryRepository : WiseSayingRepository {
 
     override fun save(wiseSaying: WiseSaying) : WiseSaying {
         if(wiseSaying.isNew()) {
-            wiseSaying.setId(++lastId)
+            wiseSaying.id = ++lastId
             wiseSayings.add(wiseSaying)
             return wiseSaying
         }
@@ -22,7 +22,7 @@ class WiseSayingMemoryRepository : WiseSayingRepository {
     }
 
     override fun findById(id: Int) : WiseSaying? {
-        return wiseSayings.firstOrNull {it.getId() == id}
+        return wiseSayings.firstOrNull {it.id == id}
     }
 
     override fun delete(id: Int): Boolean {

@@ -21,13 +21,13 @@ class WiseSayingController {
 
         val createdWiseSaying = wiseSayingService.createWiseSaying(content, author)
 
-        println("${createdWiseSaying.getId()}번 명언이 등록되었습니다.")
+        println("${createdWiseSaying.id}번 명언이 등록되었습니다.")
     }
 
     fun getWiseSayings() {
         val wiseSayings = wiseSayingService.getWiseSayings()
         for (wiseSaying in wiseSayings) {
-            println("${wiseSaying.getId()} / ${wiseSaying.getAuthor()} / ${wiseSaying.getContent()}")
+            println("${wiseSaying.id} / ${wiseSaying.author} / ${wiseSaying.content}")
         }
     }
 
@@ -57,11 +57,11 @@ class WiseSayingController {
             return
         }
 
-        println("명언(기존) : ${wiseSaying.getContent()}")
+        println("명언(기존) : ${wiseSaying.content}")
         print("명언 : ")
         val content = readlnOrNull()!!
 
-        println("작가(기존) : ${wiseSaying.getAuthor()}")
+        println("작가(기존) : ${wiseSaying.author}")
         print("작가 : ")
         val author = readlnOrNull()!!
 
