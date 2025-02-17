@@ -9,6 +9,15 @@ class WiseSaying(
 ) {
     constructor(content: String, author: String) : this(0, content, author)
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as WiseSaying
+
+        return id == other.id
+    }
+
     companion object {
         fun fromJsonStr(jsonStr: String): WiseSaying {
             val map = jsonStrToMap(jsonStr)
@@ -28,6 +37,10 @@ class WiseSaying(
     fun updateWiseSaying(content: String, author: String) {
         this.content = content
         this.author = author
+    }
+
+    override fun hashCode(): Int {
+        return id
     }
 
     val jsonStr: String
