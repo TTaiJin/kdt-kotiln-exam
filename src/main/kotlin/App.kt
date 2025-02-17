@@ -16,7 +16,10 @@ class App {
             val command = CommandUtil(input)
 
             when (command.action) {
-                "종료" -> isRun = false
+                "종료" -> {
+                    println("앱을 종료합니다.")
+                    isRun = false
+                }
                 "등록" -> wiseSayingController.addWiseSaying()
                 "목록" -> wiseSayingController.getWiseSayings()
                 "삭제" -> wiseSayingController.deleteWiseSaying(
