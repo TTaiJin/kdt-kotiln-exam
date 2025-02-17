@@ -28,4 +28,9 @@ class WiseSayingRepository {
     fun delete(id: Int): Boolean {
         return wiseSayings.remove(findById(id))
     }
+
+    fun clear() {
+        lastId = 0
+        wiseSayings.clear()
+    }
 }

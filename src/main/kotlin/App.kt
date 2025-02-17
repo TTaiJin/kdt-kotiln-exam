@@ -1,12 +1,12 @@
 package com.ll
 
-import com.ll.domain.controller.WiseSayingController
+import com.ll.global.bean.SingletonScope
 import com.ll.global.util.CommandUtil
 
 class App {
     fun run() {
         var isRun = true
-        val wiseSayingController = WiseSayingController()
+        val wiseSayingController = SingletonScope.wiseSayingController
 
         println("== 명언 앱 ==")
         while (isRun) {

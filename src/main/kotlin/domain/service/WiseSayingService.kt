@@ -1,11 +1,11 @@
 package com.ll.domain.service
 
 import com.ll.domain.entity.WiseSaying
-import com.ll.domain.repository.WiseSayingRepository
+import com.ll.global.bean.SingletonScope
 
 class WiseSayingService {
 
-    private val wiseSayingRepository = WiseSayingRepository()
+    private val wiseSayingRepository = SingletonScope.wiseSayingRepository
 
     fun createWiseSaying(content: String, author: String): WiseSaying {
         val wiseSaying = WiseSaying(content, author)

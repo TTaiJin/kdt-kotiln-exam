@@ -1,10 +1,10 @@
 package com.ll.domain.controller
 
-import com.ll.domain.service.WiseSayingService
+import com.ll.global.bean.SingletonScope
 
 class WiseSayingController {
 
-    private val wiseSayingService = WiseSayingService()
+    private val wiseSayingService = SingletonScope.wiseSayingService
 
     fun addWiseSaying() {
         print("명언: ")
