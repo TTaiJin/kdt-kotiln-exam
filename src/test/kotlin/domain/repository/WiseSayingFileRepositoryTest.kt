@@ -58,4 +58,14 @@ class WiseSayingFileRepositoryTest {
         wiseSayingRepository.saveLastId(10)
         assertThat(wiseSayingRepository.loadLastId()).isEqualTo(10)
     }
+
+    @Test
+    @DisplayName("delete")
+    fun t4() {
+        val wiseSaying = WiseSaying("나의 죽음을 적들에게 알리지 말라.", "충무공 이순신")
+        wiseSayingRepository.save(wiseSaying)
+
+        wiseSayingRepository.delete(wiseSaying.id)
+        assertThat(wiseSayingRepository.findById(wiseSaying.id)).isNull()
+    }
 }
