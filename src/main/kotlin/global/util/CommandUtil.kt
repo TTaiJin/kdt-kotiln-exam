@@ -30,6 +30,10 @@ class CommandUtil(command: String) {
         return paramMap[key]
     }
 
+    fun getParamValue(name: String, default: String): String {
+        return getParamValue(name) ?: default
+    }
+
     fun getParamValueAsInt(key: String): Int? {
         val value = getParamValue(key) ?: return null
         return try {

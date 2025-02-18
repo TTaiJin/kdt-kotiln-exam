@@ -1,6 +1,7 @@
 package com.ll.domain.controller
 
 import com.ll.global.bean.SingletonScope
+import com.ll.global.util.CommandUtil
 
 class WiseSayingController {
 
@@ -24,13 +25,31 @@ class WiseSayingController {
         println("${createdWiseSaying.id}번 명언이 등록되었습니다.")
     }
 
-    fun getWiseSayings() {
-        val wiseSayings = wiseSayingService.getWiseSayings()
-        for (wiseSaying in wiseSayings) {
-            println("${wiseSaying.id} / ${wiseSaying.author} / ${wiseSaying.content}")
+    fun getWiseSayings(command: CommandUtil) {
+        val keywordType = command.getParamValue("keywordType", "content")
+        val keyword = command.getParamValue("keyword", "")
+
+        val wiseSayings = if (keyword.isNotBlank()) {
+            wiseSayingService.findByKeyword(keywordType, keyword)
+        } else {
+            wiseSayingService.getWiseSayings()
+        }
+
+        if (keyword.isNotBlank()) {
+            println("----------------------")
+            println("검색타입 : $keywordType")
+            println("검색어 : $keyword")
+            println("----------------------")
+        }
+
+        println("번호 / 작가 / 명언")
+
+        println("----------------------")
+
+        wiseSayings.forEach {
+            println("${it.id} / ${it.author} / ${it.content}")
         }
     }
-
 
     fun deleteWiseSaying(id: Int?) {
         if (id == null) {
@@ -68,5 +87,11 @@ class WiseSayingController {
         wiseSayingService.modifyWiseSaying(wiseSaying, content, author)
 
         println("${id}번 명언이 수정되었습니다.")
+    }
+
+    fun buildWiseSayings() {
+        wiseSayingService.build()
+
+        println("data.json 파일의 내용이 갱신되었습니다.")
     }
 }

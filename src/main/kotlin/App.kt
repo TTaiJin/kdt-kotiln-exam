@@ -21,13 +21,14 @@ class App {
                     isRun = false
                 }
                 "등록" -> wiseSayingController.addWiseSaying()
-                "목록" -> wiseSayingController.getWiseSayings()
+                "목록" -> wiseSayingController.getWiseSayings(command)
                 "삭제" -> wiseSayingController.deleteWiseSaying(
                     command.getParamValueAsInt("id")
                 )
                 "수정" -> wiseSayingController.modifyWiseSaying(
                     command.getParamValueAsInt("id")
                 )
+                "빌드" -> wiseSayingController.buildWiseSayings()
             }
         }
     }
