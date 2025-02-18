@@ -1,3 +1,4 @@
+
 import com.ll.App
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -37,5 +38,14 @@ object TestRunner {
                 .trim()
                 .replace("\r\n", "\n")
         }
+    }
+
+    fun makeSampleData(size: Int) {
+        val input = (1..size)
+            .joinToString("\n") { i ->
+                "등록\n명언 $i\n작자미상\n"
+            }
+
+        run(input)
     }
 }
