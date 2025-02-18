@@ -1,6 +1,7 @@
 package com.ll.domain.repository
 
 import com.ll.domain.entity.WiseSaying
+import com.ll.global.dto.Page
 
 interface WiseSayingRepository {
 
@@ -19,4 +20,8 @@ interface WiseSayingRepository {
     fun findByAuthorLike(authorLike: String) : List<WiseSaying>
 
     fun findByAuthorContent(contentLike: String) : List<WiseSaying>
+
+    fun findAllPaged(itemsPerPage: Int, pageNo: Int): Page<WiseSaying>
+
+    fun findByKeywordPaged(keywordType: String, keyword: String, itemsPerPage: Int, pageNo: Int): Page<WiseSaying>
 }

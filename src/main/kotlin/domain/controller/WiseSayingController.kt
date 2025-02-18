@@ -29,10 +29,13 @@ class WiseSayingController {
         val keywordType = command.getParamValue("keywordType", "content")
         val keyword = command.getParamValue("keyword", "")
 
-        val wiseSayings = if (keyword.isNotBlank()) {
-            wiseSayingService.findByKeyword(keywordType, keyword)
+        val itemsPerPage = 5
+        val pageNo: Int = command.getParamValueAsInt("page", 1)
+
+        val wiseSayingPage = if (keyword.isNotBlank()) {
+            wiseSayingService.findByKeywordPaged(keywordType, keyword, itemsPerPage, pageNo)
         } else {
-            wiseSayingService.getWiseSayings()
+            wiseSayingService.findAllPaged(itemsPerPage, pageNo)
         }
 
         if (keyword.isNotBlank()) {
@@ -46,9 +49,18 @@ class WiseSayingController {
 
         println("----------------------")
 
-        wiseSayings.forEach {
+        wiseSayingPage.content.forEach {
             println("${it.id} / ${it.author} / ${it.content}")
         }
+
+        print("페이지 : ")
+
+        val pageMenu = (1..wiseSayingPage.totalPages)
+            .joinToString(" ") {
+                if (it == pageNo) "[$it]" else it.toString()
+            }
+
+        println(pageMenu)
     }
 
     fun deleteWiseSaying(id: Int?) {

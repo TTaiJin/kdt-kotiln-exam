@@ -23,10 +23,10 @@ class App {
                 "등록" -> wiseSayingController.addWiseSaying()
                 "목록" -> wiseSayingController.getWiseSayings(command)
                 "삭제" -> wiseSayingController.deleteWiseSaying(
-                    command.getParamValueAsInt("id")
+                    command.getParamValueAsInt("id", 0)
                 )
                 "수정" -> wiseSayingController.modifyWiseSaying(
-                    command.getParamValueAsInt("id")
+                    command.getParamValueAsInt("id", 0)
                 )
                 "빌드" -> wiseSayingController.buildWiseSayings()
             }

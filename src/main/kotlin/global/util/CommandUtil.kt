@@ -34,12 +34,12 @@ class CommandUtil(command: String) {
         return getParamValue(name) ?: default
     }
 
-    fun getParamValueAsInt(key: String): Int? {
-        val value = getParamValue(key) ?: return null
+    fun getParamValueAsInt(key: String, default: Int): Int {
+        val value = getParamValue(key) ?: return default
         return try {
             value.toInt()
         } catch (e: NumberFormatException) {
-            null
+            default
         }
     }
 }
